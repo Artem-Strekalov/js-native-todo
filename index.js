@@ -1,13 +1,9 @@
 const tasksList = [
     { id: "1", text: "synthesize", completed: true },
-    { id: "2", text: "override", completed: false },
-    { id: "3", text: "index", completed: true },
-    { id: "4", text: "compress", completed: false },
-    { id: "5", text: "compress", completed: false },
-    { id: "6", text: "override", completed: true },
-    { id: "7", text: "generate", completed: true }
+
 ];
 
+/*Создаю новый тег и передаю в него значения из массива*/
 function createListItem(task) {
     const label = document.createElement('label')
     label.innerHTML = task.text
@@ -33,13 +29,28 @@ function createListItem(task) {
     return li
 }
 
-function renderTasks(tasks) {
+function renderTasks() {
     const ul = document.querySelector('ul')
 
     for (let task of tasksList) {
         let li = createListItem(task)
         ul.appendChild(li)
+
     }
 
+
 }
-renderTasks(tasksList);
+renderTasks();
+
+/*id следующего объекта в массиве */
+function newId() {
+    let lastValueId = tasksList[tasksList.length - 1].id;
+    let newLastValueId = Number(tasksList[tasksList.length - 1].id) + 1;
+    return newLastValueId;
+}
+/* Добавляем таску  */
+function addNewTask() {
+    let input = document.getElementById('task');
+    tasksList.push({ id: newId(), text: input.value, completed: true });
+    renderTasks();
+}
