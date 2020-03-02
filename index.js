@@ -29,6 +29,7 @@ function createListItem(task) {
     return li
 }
 
+
 function renderTasks() {
     const ul = document.querySelector('ul')
 
