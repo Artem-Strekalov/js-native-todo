@@ -57,7 +57,7 @@ function newId() {
 
 /* Добавляем таску  */
 function addNewTask() {
-    let input = document.getElementById('task');
+    let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
     renderTasks();
 }
