@@ -7,7 +7,7 @@ const tasksList = [
     { id: "6", text: "override", completed: true },
     { id: "7", text: "generate", completed: true }
 ];
-
+/*Создаю новый тег и передаю в него значения из массива*/
 function createListItem(task) {
     const label = document.createElement('label')
     label.innerHTML = task.text
@@ -33,13 +33,31 @@ function createListItem(task) {
     return li
 }
 
+
 function renderTasks(tasks) {
     const ul = document.querySelector('ul')
-
+    ul.innerHTML = '';
     for (let task of tasksList) {
         let li = createListItem(task)
         ul.appendChild(li)
-    }
 
+    }
 }
 renderTasks(tasksList);
+
+
+function newId() {
+    /* Создал массив из id task */
+    let newTaskId = tasksList.map(item => item.id)
+        /* Нашел максимальный id */
+    let maxId = Math.max.apply(null, newTaskId) + 1;
+    maxId = String(maxId);
+    return maxId;
+}
+
+/* Добавляем таску  */
+function addNewTask() {
+    let input = document.getElementById('taskInput');
+    tasksList.push({ id: newId(), text: input.value, completed: false });
+    renderTasks();
+}
