@@ -1,8 +1,12 @@
 const tasksList = [
     { id: "1", text: "synthesize", completed: true },
-
+    { id: "2", text: "override", completed: false },
+    { id: "3", text: "index", completed: true },
+    { id: "4", text: "compress", completed: false },
+    { id: "5", text: "compress", completed: false },
+    { id: "6", text: "override", completed: true },
+    { id: "7", text: "generate", completed: true }
 ];
-
 /*Создаю новый тег и передаю в него значения из массива*/
 function createListItem(task) {
     const label = document.createElement('label')
@@ -30,28 +34,30 @@ function createListItem(task) {
 }
 
 
-function renderTasks() {
+function renderTasks(tasks) {
     const ul = document.querySelector('ul')
-
+    ul.innerHTML = '';
     for (let task of tasksList) {
         let li = createListItem(task)
         ul.appendChild(li)
 
     }
-
-
 }
-renderTasks();
+renderTasks(tasksList);
 
-/*id следующего объекта в массиве */
+
 function newId() {
-    let lastValueId = tasksList[tasksList.length - 1].id;
-    let newLastValueId = Number(tasksList[tasksList.length - 1].id) + 1;
-    return newLastValueId;
+    /* Создал массив из id task */
+    let newTaskId = tasksList.map(item => item.id)
+        /* Нашел максимальный id */
+    let maxId = Math.max.apply(null, newTaskId) + 1;
+    maxId = String(maxId);
+    return maxId;
 }
+
 /* Добавляем таску  */
 function addNewTask() {
     let input = document.getElementById('task');
-    tasksList.push({ id: newId(), text: input.value, completed: true });
+    tasksList.push({ id: newId(), text: input.value, completed: false });
     renderTasks();
 }
