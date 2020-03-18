@@ -69,4 +69,5 @@ function deleteTask(event) {
     tasksList = newTasksList
     renderTasks(tasksList)
 
+
 }
