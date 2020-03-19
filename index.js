@@ -1,4 +1,4 @@
-const tasksList = [
+let tasksList = [
     { id: "1", text: "synthesize", completed: true },
     { id: "2", text: "override", completed: false },
     { id: "3", text: "index", completed: true },
@@ -8,12 +8,14 @@ const tasksList = [
     { id: "7", text: "generate", completed: true }
 ];
 /*Создаю новый тег и передаю в него значения из массива*/
+
 function createListItem(task) {
     const label = document.createElement('label')
     label.innerHTML = task.text
 
     const button = document.createElement('button')
     button.className = 'destroy'
+    button.onclick = deleteTask;
 
     const input = document.createElement('input')
     input.className = 'toogle'
@@ -28,8 +30,8 @@ function createListItem(task) {
     div.appendChild(label)
 
     const li = document.createElement('li')
+    li.setAttribute("id", task.id);
     li.appendChild(div)
-
     return li
 }
 
@@ -45,7 +47,6 @@ function renderTasks(tasks) {
 }
 renderTasks(tasksList);
 
-
 function newId() {
     /* Создал массив из id task */
     let newTaskId = tasksList.map(item => item.id)
@@ -60,4 +61,13 @@ function addNewTask() {
     let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
     renderTasks();
+}
+/* Уаляем таску */
+function deleteTask(event) {
+    let id = event.target.parentNode.parentNode.id
+    let newTasksList = tasksList.filter(task => task.id !== id)
+    tasksList = newTasksList
+    renderTasks(tasksList)
+
+
 }
