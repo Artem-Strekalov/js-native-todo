@@ -21,6 +21,7 @@ function createListItem(task) {
     input.className = 'toogle'
     input.type = 'checkbox'
     input.checked = task.completed
+    input.onclick = toggleTask;
 
     const div = document.createElement('div')
     div.className = 'view'
@@ -30,6 +31,7 @@ function createListItem(task) {
     div.appendChild(label)
 
     const li = document.createElement('li')
+    li.className = `todo ${task.completed ? "completed" : ""}`
     li.setAttribute("id", task.id);
     li.appendChild(div)
     return li
@@ -68,6 +70,20 @@ function deleteTask(event) {
     let newTasksList = tasksList.filter(task => task.id !== id)
     tasksList = newTasksList
     renderTasks(tasksList)
-
-
 }
+/* Изменяем значение checked */
+function toggleTask(event) {
+    let li = event.target.parentNode.parentNode;
+    let newTasksList = tasksList.map(task => {
+        if( task.id===li.id){ 
+        return({id: li.id, text: task.text, completed: !task.completed})
+    }
+    
+     return task })
+     tasksList = newTasksList
+     console.log(tasksList)
+     renderTasks(tasksList)
+    }
+
+
+
