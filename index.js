@@ -46,6 +46,8 @@ function renderTasks(tasks) {
         ul.appendChild(li)
 
     }
+
+    counter()
 }
 renderTasks(tasksList);
 
@@ -62,26 +64,12 @@ function newId() {
 function addNewTask() {
     let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
-/* счетчик */
-    let taskCompleted = tasksList.map(item => item.completed);
-    let newTaskCompleted = taskCompleted.filter(item => item === false).length 
-    let count = document.getElementById('count')
-
-     count.innerHTML = newTaskCompleted;
-
-
     renderTasks();
 }
 /* Уаляем таску */
 function deleteTask(event) {
     let id = event.target.parentNode.parentNode.id
     let newTasksList = tasksList.filter(task => task.id !== id)
-/* счетчик */
-    let taskCompleted = newTasksList.map(item => item.completed)
-    let newTaskCompleted = taskCompleted.filter(item => item === false).length 
-    let count = document.getElementById('count')
-     count.innerHTML = newTaskCompleted;
-
     tasksList = newTasksList
     renderTasks(tasksList)
 }
@@ -93,17 +81,14 @@ function toggleTask(event) {
         return({id: li.id, text: task.text, completed: !task.completed})
     }
      return task })
-/* счетчик */
-     /* создаю массив с текщими значениями completed*/
-     let taskCompleted = newTasksList.map(item => item.completed)
-      /* текущее колличество невыполненных задач */
-     let newTaskCompleted = taskCompleted.filter(item => item === false).length 
-     /* Записываем текущее колличество невыполненных задач */
-     let count = document.getElementById('count')
-     count.innerHTML = newTaskCompleted;
-
      tasksList = newTasksList
      renderTasks(tasksList)
     }
-
+/* счетчик */
+    function counter(){
+        let count=tasksList.filter(task => !task.completed).length;
+    let strong= document.getElementById('count')
+    strong.innerHTML = count;
+    }
+        
     
