@@ -20,8 +20,18 @@
                 <input class="toggle-all" type="checkbox" />
                 <label for="toggle-all" onclick="allCheckLabel()"></label>
                 <ul class="todo-list"> </ul>
-
             </section>
+            <footer class="footer" style="display: block;">
+                <span class="todo-count">
+                    <strong id="count">0</strong>
+                     item left
+                </span>
+                <ul class="filters">
+                    <li><a href="#/" class="selected">All</a></li>
+                    <li><a href="#/active">Active</a></li>
+                    <li><a href="#/completed">Completed</a></li>
+                </ul>
+                </footer>
         </div>
     </section>
     <script src="index.js"></script>

@@ -31,7 +31,7 @@ function createListItem(task) {
     div.appendChild(label)
 
     const li = document.createElement('li')
-    li.className = `todo ${task.completed ? "completed" : ""}`
+    li.className = `todo ${task.completed ? "completed" : ""}`/* разобрать эту строчку */
     li.setAttribute("id", task.id);
     li.appendChild(div)
     return li
@@ -46,6 +46,8 @@ function renderTasks(tasks) {
         ul.appendChild(li)
 
     }
+
+    counter()
 }
 renderTasks(tasksList);
 
@@ -74,16 +76,19 @@ function deleteTask(event) {
 /* Изменяем значение checked */
 function toggleTask(event) {
     let li = event.target.parentNode.parentNode;
-    let newTasksList = tasksList.map(task => {
+     let newTasksList = tasksList.map(task => {
         if( task.id===li.id){ 
         return({id: li.id, text: task.text, completed: !task.completed})
     }
-    
      return task })
      tasksList = newTasksList
-     console.log(tasksList)
      renderTasks(tasksList)
     }
-
-
-
+/* счетчик */
+    function counter(){
+        let count=tasksList.filter(task => !task.completed).length;
+    let strong= document.getElementById('count')
+    strong.innerHTML = count;
+    }
+        
+    
