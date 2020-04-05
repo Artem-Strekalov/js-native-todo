@@ -31,7 +31,7 @@ function createListItem(task) {
     div.appendChild(label)
 
     const li = document.createElement('li')
-    li.className = `todo ${task.completed ? "completed" : ""}`
+    li.className = `todo ${task.completed ? "completed" : ""}`/* разобрать эту строчку */
     li.setAttribute("id", task.id);
     li.appendChild(div)
     return li
@@ -62,28 +62,48 @@ function newId() {
 function addNewTask() {
     let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
+/* счетчик */
+    let taskCompleted = tasksList.map(item => item.completed);
+    let newTaskCompleted = taskCompleted.filter(item => item === false).length 
+    let count = document.getElementById('count')
+
+     count.innerHTML = newTaskCompleted;
+
+
     renderTasks();
 }
 /* Уаляем таску */
 function deleteTask(event) {
     let id = event.target.parentNode.parentNode.id
     let newTasksList = tasksList.filter(task => task.id !== id)
+/* счетчик */
+    let taskCompleted = newTasksList.map(item => item.completed)
+    let newTaskCompleted = taskCompleted.filter(item => item === false).length 
+    let count = document.getElementById('count')
+     count.innerHTML = newTaskCompleted;
+
     tasksList = newTasksList
     renderTasks(tasksList)
 }
 /* Изменяем значение checked */
 function toggleTask(event) {
     let li = event.target.parentNode.parentNode;
-    let newTasksList = tasksList.map(task => {
+     let newTasksList = tasksList.map(task => {
         if( task.id===li.id){ 
         return({id: li.id, text: task.text, completed: !task.completed})
     }
-    
      return task })
+/* счетчик */
+     /* создаю массив с текщими значениями completed*/
+     let taskCompleted = newTasksList.map(item => item.completed)
+      /* текущее колличество невыполненных задач */
+     let newTaskCompleted = taskCompleted.filter(item => item === false).length 
+     /* Записываем текущее колличество невыполненных задач */
+     let count = document.getElementById('count')
+     count.innerHTML = newTaskCompleted;
+
      tasksList = newTasksList
-     console.log(tasksList)
      renderTasks(tasksList)
     }
 
-
-
+    
