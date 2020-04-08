@@ -40,7 +40,6 @@ function createListItem(task) {
 
 }
 
-
 function renderTasks(tasks) {
     const ul = document.querySelector('ul')
     ul.innerHTML = '';
@@ -49,7 +48,6 @@ function renderTasks(tasks) {
         ul.appendChild(li)
 
     }
-    addButton()
     counter()
 }
 renderTasks(tasksList);
@@ -84,8 +82,10 @@ function toggleTask(event) {
         if (task.id === li.id) {
             return ({ id: li.id, text: task.text, completed: !task.completed })
         }
+
         return task
     })
+    but.style.display = 'block';
     tasksList = newTasksList
     renderTasks(tasksList)
 }
@@ -99,14 +99,9 @@ function counter() {
     }
 }
 
-function addButton() {
-    let but = document.getElementById('but');
-    but.innerHTML = "Clear completed";
-    but.style.display = 'block';
-}
-
 function clearCompleted() {
-    let newTaskList = tasksList.filter(item => item.completed == false)
+    let newTaskList = tasksList.filter(item => !item.completed)
     tasksList = newTaskList
     renderTasks()
+
 }
