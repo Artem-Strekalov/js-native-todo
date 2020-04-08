@@ -1,13 +1,14 @@
 let tasksList = [
-    { id: "1", text: "synthesize", completed: true },
+    { id: "1", text: "synthesize", completed: false },
     { id: "2", text: "override", completed: false },
-    { id: "3", text: "index", completed: true },
+    { id: "3", text: "index", completed: false },
     { id: "4", text: "compress", completed: false },
     { id: "5", text: "compress", completed: false },
-    { id: "6", text: "override", completed: true },
-    { id: "7", text: "generate", completed: true }
+    { id: "6", text: "override", completed: false },
+    { id: "7", text: "generate", completed: false }
 ];
 /*Создаю новый тег и передаю в него значения из массива*/
+
 
 function createListItem(task) {
     const label = document.createElement('label')
@@ -16,6 +17,7 @@ function createListItem(task) {
     const button = document.createElement('button')
     button.className = 'destroy'
     button.onclick = deleteTask;
+
 
     const input = document.createElement('input')
     input.className = 'toogle'
@@ -31,10 +33,11 @@ function createListItem(task) {
     div.appendChild(label)
 
     const li = document.createElement('li')
-    li.className = `todo ${task.completed ? "completed" : ""}`/* разобрать эту строчку */
+    li.className = `todo ${task.completed ? "completed" : ""}` /* разобрать эту строчку */
     li.setAttribute("id", task.id);
     li.appendChild(div)
     return li
+
 }
 
 
@@ -46,7 +49,7 @@ function renderTasks(tasks) {
         ul.appendChild(li)
 
     }
-
+    addButton()
     counter()
 }
 renderTasks(tasksList);
@@ -66,29 +69,44 @@ function addNewTask() {
     tasksList.push({ id: newId(), text: input.value, completed: false });
     renderTasks();
 }
-/* Уаляем таску */
+/* Удаляем таску */
 function deleteTask(event) {
     let id = event.target.parentNode.parentNode.id
     let newTasksList = tasksList.filter(task => task.id !== id)
     tasksList = newTasksList
+    but.style.display = 'none';
     renderTasks(tasksList)
 }
 /* Изменяем значение checked */
 function toggleTask(event) {
     let li = event.target.parentNode.parentNode;
-     let newTasksList = tasksList.map(task => {
-        if( task.id===li.id){ 
-        return({id: li.id, text: task.text, completed: !task.completed})
-    }
-     return task })
-     tasksList = newTasksList
-     renderTasks(tasksList)
-    }
+    let newTasksList = tasksList.map(task => {
+        if (task.id === li.id) {
+            return ({ id: li.id, text: task.text, completed: !task.completed })
+        }
+        return task
+    })
+    tasksList = newTasksList
+    renderTasks(tasksList)
+}
 /* счетчик */
-    function counter(){
-        let count=tasksList.filter(task => !task.completed).length;
-    let strong= document.getElementById('count')
+function counter() {
+    let count = tasksList.filter(task => !task.completed).length;
+    let strong = document.getElementById('count')
     strong.innerHTML = count;
+    if (count == tasksList.length) {
+        but.style.display = 'none';
     }
-        
-    
+}
+
+function addButton() {
+    let but = document.getElementById('but');
+    but.innerHTML = "Clear completed";
+    but.style.display = 'block';
+}
+
+function clearCompleted() {
+    let newTaskList = tasksList.filter(item => item.completed == false)
+    tasksList = newTaskList
+    renderTasks()
+}
