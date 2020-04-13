@@ -8,8 +8,6 @@ let tasksList = [
     { id: "7", text: "generate", completed: false }
 ];
 /*Создаю новый тег и передаю в него значения из массива*/
-
-
 function createListItem(task) {
     const label = document.createElement('label')
     label.innerHTML = task.text
@@ -39,6 +37,7 @@ function createListItem(task) {
     return li
 
 }
+
 
 function renderTasks(tasks) {
     const ul = document.querySelector('ul')
@@ -104,4 +103,31 @@ function clearCompleted() {
     tasksList = newTaskList
     renderTasks()
 
+}
+/* Фильтр */
+/* все таски */
+document.getElementById('all').onclick = function all() {
+        renderTasks()
+    }
+    /* активыне таски */
+document.getElementById('active').onclick = function active() {
+        let newTaskList = tasksList.filter(item => !item.completed);
+        const ul = document.querySelector('ul')
+        ul.innerHTML = '';
+        for (let task of newTaskList) {
+            let li = createListItem(task)
+            ul.appendChild(li)
+
+        }
+    }
+    /* выполенные */
+document.getElementById('completed').onclick = function completed() {
+    let newTaskList = tasksList.filter(item => item.completed);
+    const ul = document.querySelector('ul')
+    ul.innerHTML = '';
+    for (let task of newTaskList) {
+        let li = createListItem(task)
+        ul.appendChild(li)
+
+    }
 }
