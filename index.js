@@ -42,7 +42,7 @@ function createListItem(task) {
 function renderTasks(tasks) {
     const ul = document.querySelector('ul')
     ul.innerHTML = '';
-    for (let task of tasksList) {
+    for (let task of tasks) {
         let li = createListItem(task)
         ul.appendChild(li)
 
@@ -64,7 +64,7 @@ function newId() {
 function addNewTask() {
     let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
-    renderTasks();
+    renderTasks(tasksList);
 }
 /* Удаляем таску */
 function deleteTask(event) {
@@ -101,33 +101,22 @@ function counter() {
 function clearCompleted() {
     let newTaskList = tasksList.filter(item => !item.completed)
     tasksList = newTaskList
-    renderTasks()
+    renderTasks(tasksList)
 
 }
 /* Фильтр */
 /* все таски */
-document.getElementById('all').onclick = function all() {
-        renderTasks()
-    }
-    /* активыне таски */
-document.getElementById('active').onclick = function active() {
-        let newTaskList = tasksList.filter(item => !item.completed);
-        const ul = document.querySelector('ul')
-        ul.innerHTML = '';
-        for (let task of newTaskList) {
-            let li = createListItem(task)
-            ul.appendChild(li)
-
-        }
-    }
-    /* выполенные */
-document.getElementById('completed').onclick = function completed() {
+function filterAll() {
+    renderTasks(tasksList)
+}
+/* активыне таски */
+function filterActive() {
+    let newTaskList = tasksList.filter(item => !item.completed);
+    renderTasks(newTaskList)
+}
+/* выполенные */
+function filterCompleted() {
     let newTaskList = tasksList.filter(item => item.completed);
-    const ul = document.querySelector('ul')
-    ul.innerHTML = '';
-    for (let task of newTaskList) {
-        let li = createListItem(task)
-        ul.appendChild(li)
+    renderTasks(newTaskList)
 
-    }
 }
