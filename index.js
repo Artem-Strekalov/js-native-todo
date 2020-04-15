@@ -48,7 +48,7 @@ function renderTasks(tasks) {
 
     }
     counter()
-    footerHide()
+    showHideFooter()
 }
 renderTasks(tasksList);
 
@@ -122,7 +122,7 @@ function filterCompleted() {
 
 }
 /* none/block footer */
-function footerHide() {
+function showHideFooter() {
     if (tasksList.length == 0) {
         footer.style.display = 'none'
     } else {
