@@ -48,6 +48,7 @@ function renderTasks(tasks) {
 
     }
     counter()
+    footerHide()
 }
 renderTasks(tasksList);
 
@@ -64,8 +65,7 @@ function newId() {
 function addNewTask() {
     let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
-    renderTasks(tasksList);
-    footerHide()
+    renderTasks(tasksList)
 }
 /* Удаляем таску */
 function deleteTask(event) {
@@ -74,7 +74,7 @@ function deleteTask(event) {
     tasksList = newTasksList
     but.style.display = 'none';
     renderTasks(tasksList)
-    footerHide()
+
 }
 /* Изменяем значение checked */
 function toggleTask(event) {
@@ -104,7 +104,6 @@ function clearCompleted() {
     let newTaskList = tasksList.filter(item => !item.completed)
     tasksList = newTaskList
     renderTasks(tasksList)
-    footerHide()
 }
 /* Фильтр */
 /* все таски */
