@@ -1,4 +1,4 @@
-let tasksList;
+let tasksList = [];
 
 function addLocalStorage() {
     localStorage.setItem('todos', JSON.stringify(tasksList))
@@ -6,10 +6,7 @@ function addLocalStorage() {
 
 if (localStorage.getItem('todos')) {
     tasksList = JSON.parse(localStorage.getItem('todos'))
-} else {
-    tasksList = []
 }
-
 /*Создаю новый тег и передаю в него значения из массива*/
 function createListItem(task) {
     const label = document.createElement('label')
