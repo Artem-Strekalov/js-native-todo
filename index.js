@@ -1,12 +1,15 @@
-let tasksList = [
-    { id: "1", text: "synthesize", completed: false },
-    { id: "2", text: "override", completed: false },
-    { id: "3", text: "index", completed: false },
-    { id: "4", text: "compress", completed: false },
-    { id: "5", text: "compress", completed: false },
-    { id: "6", text: "override", completed: false },
-    { id: "7", text: "generate", completed: false }
-];
+let tasksList;
+
+function addLocalStorage() {
+    localStorage.setItem('todos', JSON.stringify(tasksList))
+}
+
+if (localStorage.getItem('todos')) {
+    tasksList = JSON.parse(localStorage.getItem('todos'))
+} else {
+    tasksList = []
+}
+
 /*Создаю новый тег и передаю в него значения из массива*/
 function createListItem(task) {
     const label = document.createElement('label')
@@ -15,7 +18,6 @@ function createListItem(task) {
     const button = document.createElement('button')
     button.className = 'destroy'
     button.onclick = deleteTask;
-
 
     const input = document.createElement('input')
     input.className = 'toogle'
@@ -35,7 +37,6 @@ function createListItem(task) {
     li.setAttribute("id", task.id);
     li.appendChild(div)
     return li
-
 }
 
 
@@ -49,10 +50,14 @@ function renderTasks(tasks) {
     }
     counter()
     showHideFooter()
+    addLocalStorage()
 }
 renderTasks(tasksList);
 
 function newId() {
+    if (tasksList.length == 0) {
+        return '1'
+    }
     /* Создал массив из id task */
     let newTaskId = tasksList.map(item => item.id)
         /* Нашел максимальный id */
@@ -74,7 +79,6 @@ function deleteTask(event) {
     tasksList = newTasksList
     but.style.display = 'none';
     renderTasks(tasksList)
-
 }
 /* Изменяем значение checked */
 function toggleTask(event) {
@@ -83,7 +87,6 @@ function toggleTask(event) {
         if (task.id === li.id) {
             return ({ id: li.id, text: task.text, completed: !task.completed })
         }
-
         return task
     })
     but.style.display = 'block';
