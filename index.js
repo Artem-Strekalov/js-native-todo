@@ -133,13 +133,14 @@ function showHideFooter() {
 }
 
 function checkedUrl() {
-    if (window.location.hash == '#/all') {
+    const hash = window.location.hash
+    if (hash == '#/all') {
         filterAll()
     }
-    if (window.location.hash == '#/active') {
+    if (hash == '#/active') {
         filterActive()
     }
-    if (window.location.hash == '#/completed') {
+    if (hash == '#/completed') {
         filterCompleted()
     }
 }
