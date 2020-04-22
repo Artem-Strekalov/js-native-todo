@@ -67,7 +67,9 @@ function newId() {
 function addNewTask() {
     let input = document.getElementById('taskInput');
     tasksList.push({ id: newId(), text: input.value, completed: false });
-    renderTasks(tasksList)
+    renderTasks(tasksList);
+    input.value = '';
+
 }
 /* Удаляем таску */
 function deleteTask(event) {
@@ -119,8 +121,8 @@ function filterActive() {
 function filterCompleted() {
     let newTaskList = tasksList.filter(item => item.completed);
     renderTasks(newTaskList)
-
 }
+
 /* none/block footer */
 function showHideFooter() {
     if (tasksList.length == 0) {
@@ -129,3 +131,17 @@ function showHideFooter() {
         footer.style.display = "block"
     }
 }
+
+function checkedUrl() {
+    const hash = window.location.hash
+    if (hash == '#/all') {
+        filterAll()
+    }
+    if (hash == '#/active') {
+        filterActive()
+    }
+    if (hash == '#/completed') {
+        filterCompleted()
+    }
+}
+checkedUrl()
